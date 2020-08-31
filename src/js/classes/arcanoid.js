@@ -1,110 +1,30 @@
-class Arcanoid {
+import Events from './events';
+import Preloader from './preloader';
+import Sprites from './sprites';
+
+export default class Arcanoid extends Sprites {
   constructor() {
+    super();
     this.ctx = null;
     this.rows = 4;
     this.cols = 8;
-    this.width = 640;
-    this.height = 360;
     this.running = true;
     this.score = 0;
-    this.blocks = [];
-    this.sprites = {
-      background: null,
-      ball: null,
-      platform: null,
-      block: null
-    };
-    this.sounds = {
-      bump: null
-    };
-  }
-
-  static start() {
-    this.init();
-    this.preload(() => {
-      this.create();
-      this.run();
-    });
   }
 
   static init() {
     this.ctx = document.querySelector('#canvas').getContext("2d");
     this.ctx.fillStyle = "#fff";
     this.ctx.font = "20px Arial";
-    this.setEvents();
+    Events.setEvents();
   }
 
-  static setEvents() {
-    window.addEventListener("keydown", e => {
-      if (e.keyCode === KEYS.LEFT || e.keyCode === KEYS.RIGHT) {
-        this.platform.start(e.keyCode);
-      }
-      if (e.keyCode === KEYS.SPACE) {
-        this.platform.fire();
-      }
+  static start() {
+    this.init();
+    Preloader.preload(() => {
+      this.create();
+      this.run();
     });
-
-    window.addEventListener("keyup", e => {
-      this.platform.stop();
-    });
-  }
-
-  static preload(callBack) {
-    let loaded = 0;
-    let required = Object.keys(this.sprites).length;
-    required += Object.keys(this.sounds).length;
-
-    let onResourseLoad = () => {
-      ++loaded;
-      if (loaded >= required) {
-        callBack();
-      }
-    }
-
-    this.preloadSprites(onResourseLoad);
-    this.preloadSounds(onResourseLoad);
-  }
-
-  static preloadSprites(callBack) {
-    for (let key in this.sprites) {
-      this.sprites[key] = new Image();
-      this.sprites[key].src = `img/${key}.png`;
-      this.sprites[key].addEventListener("load", callBack);
-    }
-  }
-
-  static preloadSounds(callBack) {
-    for (let key in this.sounds) {
-      this.sounds[key] = new Audio(`sounds/${key}.mp3`);
-      this.sounds[key].addEventListener("canplaythrough", callBack, {once: true});
-    }
-  }
-
-  static render() {
-    this.ctx.clearRect(0, 0, this.width, this.height);
-    this.ctx.drawImage(this.sprites.background, 0, 0);
-    this.ctx.drawImage(this.sprites.platform, this.platform.x, this.platform.y);
-    this.ctx.drawImage(
-      this.sprites.ball, 
-      this.ball.frame * this.ball.width,
-      0,
-      this.ball.size,
-      this.ball.size,
-      this.ball.x,
-      this.ball.y,
-      this.ball.size,
-      this.ball.size
-    );
-    this.renderBlocks();
-    this.ctx.fillText(`Score: ${this.score}`, 15, 340);
-  }
-
-  static renderBlocks() {
-    for (let block of this.blocks) {
-      if (block.active) {
-        this.ctx.drawImage(this.sprites.block, block.x, block.y);
-      }
-    }
   }
 
   static create() {
