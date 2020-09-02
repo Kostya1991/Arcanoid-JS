@@ -5,18 +5,18 @@ const KEYS = {
 }
 
 export default class Events {
-  static setEvents() {
+  static setEvents(platform) {
     window.addEventListener("keydown", e => {
       if (e.keyCode === KEYS.LEFT || e.keyCode === KEYS.RIGHT) {
-        // this.platform.start(e.keyCode);
+        platform.start(e.keyCode);
       }
       if (e.keyCode === KEYS.SPACE) {
-        // this.platform.fire();
+        platform.fire();
       }
     });
 
     window.addEventListener("keyup", e => {
-      // this.platform.stop();
+      platform.stop();
     });
   }
 }

@@ -21,7 +21,7 @@ const sounds = {
   bump
 };
 
-const arcanoid = new Arcanoid(null, true, 0, [], images, sounds);
+const arcanoid = new Arcanoid(null, [], images, sounds);
 
 //************************* старт игры ***********************/
 
