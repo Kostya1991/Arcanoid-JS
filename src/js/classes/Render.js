@@ -7,21 +7,21 @@ export default class Render {
     this.cols = cols;
   }
 
-  render(ctx, sprites, blocks, score) {
+  render(ctx, platform, ball, sprites, blocks, score) {
     ctx.clearRect(0, 0, this.width, this.height);
     ctx.drawImage(sprites.background, 0, 0);
-    // this.ctx.drawImage(this.sprites.platform, this.platform.x, this.platform.y);
-    // this.ctx.drawImage(
-    //   this.sprites.ball, 
-    //   this.ball.frame * this.ball.width,
-    //   0,
-    //   this.ball.size,
-    //   this.ball.size,
-    //   this.ball.x,
-    //   this.ball.y,
-    //   this.ball.size,
-    //   this.ball.size
-    // );
+    ctx.drawImage(sprites.platform, platform.x, platform.y);
+    ctx.drawImage(
+      sprites.ball, 
+      ball.frame * ball.width,
+      0,
+      ball.size,
+      ball.size,
+      ball.x,
+      ball.y,
+      ball.size,
+      ball.size
+    );
     this.renderBlocks(ctx, sprites, blocks);
     ctx.fillText(`Score: ${score}`, 15, 340);
   }
