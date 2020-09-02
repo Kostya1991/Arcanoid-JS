@@ -2,6 +2,7 @@ const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 module.exports = {
     context: path.resolve(__dirname, 'src'),
@@ -25,7 +26,8 @@ module.exports = {
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
             filename: '[name].[contenthash].css'
-        })
+        }),
+        new FaviconsWebpackPlugin('./assets/img/favicon.png')
     ],
     module: {
         rules: [
@@ -38,7 +40,7 @@ module.exports = {
                 use: [MiniCssExtractPlugin.loader,'css-loader', 'sass-loader']
             },
             {
-                test: /\.(png|jpg|svg|gif)$/,
+                test: /\.(png|jpg|svg|gif|mp3)$/,
                 use: ['file-loader']
             },
             {

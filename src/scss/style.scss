@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#game-over {
+  position: absolute;
+  top: 100px;
+  left: 240px;
+  width: 150px;
+  padding: 20px;
+  background: white;
+  display: none;
+
+  #game-over-title {
+    margin-bottom: 15px;
+  }
+
+  #btn-block {
+    button {
+      border: none;
+      outline: none;
+      padding: 5px 10px;
+      background: chartreuse;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+  }
+}
